@@ -1,0 +1,20 @@
+os: linux
+arch: amd64
+dist: bionic
+language: python
+python: 3.6
+cache: pip
+
+# Required
+# - ONNX 1.7 (Opset 12), TensorFlow 1.15.4, Sept 2020
+
+env:
+  - ONNX_PIP=onnx==1.7.0 TF_PIP=tensorflow==1.15.4
+
+jobs:
+  fast_finish: true
+
+before_install: pip install -U setuptools
+install: pip install $ONNX_PIP $TF_PIP
+before_script: pip install -e .
+script: python -m unittest discover test -v
